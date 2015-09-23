@@ -2,6 +2,8 @@
 
 A simple script for testing Expression, simply run this script in a terminal while Expression-meteor is running.
 
+# Install
+First install pymongo:
 ```bash
 pip install pymongo
 ```
