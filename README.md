@@ -5,3 +5,5 @@ A simple script for testing Expression, simply run this script in a terminal whi
 #Options:
 - Increase the number of active sentiment cards.
 - Increase the amount of comments per second.
+
+In doubt please refer to the issues section.
