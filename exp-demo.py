@@ -20,7 +20,7 @@ import random
 sc = 4
 ##### How many comments/second?
 cmts = 10
-#### Probability of succesful comment
+#### Probability of succesful comment insert (Simulate different interactions between cards)
 acc  = 20
 
 #### Text for comments and words.
