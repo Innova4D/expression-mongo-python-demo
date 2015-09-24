@@ -10,5 +10,15 @@ pip install pymongo
 #Options:
 - Increase the number of active sentiment cards.
 - Increase the amount of comments per second.
+- Set the probability of a succesful comment.
+
+```python
+##### How many sentiment cards?
+sc = 2
+##### How many comments/second?
+cmts = 1
+#### Probability of succesful comment
+acc  = 100
+```
 
 In doubt please refer to the issues section.

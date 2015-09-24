@@ -17,11 +17,12 @@ import time
 import random
 
 ##### How many sentiment cards?
-sc = 2
+sc = 4
 ##### How many comments/second?
 cmts = 10
 #### Probability of succesful comment
-acc  = 100
+acc  = 20
+
 #### Text for comments and words.
 txt = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et ma"
 # Set the mongoDB location (meteor defaults)
@@ -45,16 +46,18 @@ results = topics.find()
 print('Cards created...')
 
 def performQuery():
-    for record in topics.find():
-        sr = random.randrange(-2, 3)
-        comments.insert({"topic": record['_id'], "author": "", "posted": datetime.datetime.utcnow(), "loc": {"lng": 98.91, "lat": 110.23}, "sentiment":sr, "keywords": ["bonito", "hermoso"], "text": txt})
-        topics.update({'_id':record["_id"]}, {"$set": {"total" : record["total"]+1}}, upsert=False)
-        if sr == -2: topics.update({'_id':record["_id"]}, {"$set": {"bars.terrible" :  record["bars"]["terrible"]+1}}, upsert=False)
-        if sr == -1: topics.update({'_id':record["_id"]}, {"$set": {"bars.bad" :       record["bars"]["bad"]+1}}, upsert=False)
-        if sr ==  0: topics.update({'_id':record["_id"]}, {"$set": {"bars.neutral" :   record["bars"]["neutral"]+1}}, upsert=False)
-        if sr ==  1: topics.update({'_id':record["_id"]}, {"$set": {"bars.good" :      record["bars"]["good"]+1}}, upsert=False)
-        if sr ==  2: topics.update({'_id':record["_id"]}, {"$set": {"bars.excellent" : record["bars"]["excellent"]+1}}, upsert=False)
-        print('comment::' + record["name"])
+    for _ in range(cmts):
+        for record in topics.find():
+            sr = random.randrange(-2, 3)
+            if random.randrange(0, 100) <= acc:
+                comments.insert({"topic": record['_id'], "author": "", "posted": datetime.datetime.utcnow(), "loc": {"lng": 98.91, "lat": 110.23}, "sentiment":sr, "keywords": ["bonito", "hermoso"], "text": txt})
+                topics.update({'_id':record["_id"]}, {"$set": {"total" : record["total"]+1}}, upsert=False)
+                if sr == -2: topics.update({'_id':record["_id"]}, {"$set": {"bars.terrible" :  record["bars"]["terrible"]+1}}, upsert=False)
+                if sr == -1: topics.update({'_id':record["_id"]}, {"$set": {"bars.bad" :       record["bars"]["bad"]+1}}, upsert=False)
+                if sr ==  0: topics.update({'_id':record["_id"]}, {"$set": {"bars.neutral" :   record["bars"]["neutral"]+1}}, upsert=False)
+                if sr ==  1: topics.update({'_id':record["_id"]}, {"$set": {"bars.good" :      record["bars"]["good"]+1}}, upsert=False)
+                if sr ==  2: topics.update({'_id':record["_id"]}, {"$set": {"bars.excellent" : record["bars"]["excellent"]+1}}, upsert=False)
+                print('comment::' + record["name"])
     time.sleep(1)
 
 while True:
