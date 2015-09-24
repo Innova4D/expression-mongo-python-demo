@@ -14,6 +14,8 @@ pip install pymongo
 - Increase the amount of comments per second.
 - Set the probability of a succesful comment.
 
+Example:
+
 ```python
 ##### How many sentiment cards?
 sc = 2
